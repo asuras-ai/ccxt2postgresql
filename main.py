@@ -23,9 +23,9 @@ engine = create_engine(f'postgresql+psycopg2://{user}:{ds.db_pass}@{host}/{datab
 insp = inspect(engine)
 
 # Input parameters:
-exchanges = (ex.bybit, ex.binance) # open ccxt_exchanges.py for supported exchanges
-symbols = ('BTCUSDT', 'ETHUSDT', 'SOLUSDT') 
-timeframes = ('4h', '1d') #'15m', '1h', '4h', '1d', etc.
+exchanges = (ex.bybit, ex.binance, ex.coinbase) # open ccxt_exchanges.py for supported exchanges
+symbols = ('BTCUSDT', 'ETHUSDT', 'SOLUSDT', 'BNBUSDT', 'XRPUSDT', 'ADAUSDT', 'AVAXUSDT', 'DOGEUSDT', 'TRXUSDT', 'LINKUSDT', 'DOT', 'SHIBUSDT') 
+timeframes = ('4h', '1d', '15m', '1h') #, '4h', '1d', etc.
 
 def fetch_binance_ohlcv(exchange, symbol, timeframe, since):
     
