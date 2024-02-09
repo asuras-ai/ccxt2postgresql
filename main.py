@@ -84,21 +84,25 @@ if __name__ == "__main__":
                     since = 473385600000  # Unix timestamp for 1984-01-01 00:00:00
 
                 # Scrape data from exchange
-                time.sleep(3)    
-                historical_data = fetch_binance_ohlcv(exchange, symbol, timeframe, since)
+                time.sleep(3)
+                try:
+                    historical_data = fetch_binance_ohlcv(exchange, symbol, timeframe, since)
 
-                # Insert data into TimeScaleDB table
-                for _, row in historical_data.iterrows():
-                    try:
-                        insert_query = f"""
-                        INSERT INTO {table_name} (time, open, high, low, close, volume)
-                        VALUES (%s, %s, %s, %s, %s, %s);
-                        """
-                        cursor.execute(insert_query, tuple(row))
-                    except:
-                        continue
+                    # Insert data into TimeScaleDB table
+                    for _, row in historical_data.iterrows():
+                        try:
+                            insert_query = f"""
+                            INSERT INTO {table_name} (time, open, high, low, close, volume)
+                            VALUES (%s, %s, %s, %s, %s, %s);
+                            """
+                            cursor.execute(insert_query, tuple(row))
+                        except:
+                            continue
 
-                conn.commit()
+                    conn.commit()
+                except Exception as e:
+                    print(e)
+                    continue
     cursor.close()
     conn.close()
     print('Finished. Connection to database closed.') 
