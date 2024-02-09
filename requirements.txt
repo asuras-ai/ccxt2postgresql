@@ -1,0 +1,4 @@
+ccxt
+pandas
+psycopg2
+sqlalchemy

@@ -1,0 +1,1 @@
+db_pass = 'your_database_password'
